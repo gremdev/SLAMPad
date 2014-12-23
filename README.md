@@ -10,8 +10,8 @@ Note: This is still in Beta. Use at your own risk.
 
 Installation
 
-Option 1:
-	Git
+Option 1: Git
+	
 		sudo apt-get update
 		sudo apt-get install git-core
 
@@ -22,16 +22,16 @@ Option 1:
 
 		sudo ./setup.sh
 
-Option 2:
-	Manual
+Option 2: Manual
+
 		Copy the contents of setup.sh.
 		Create a file and name it setup.sh then paste the copied content. (Or you can do it by sudo nano setup.sh).
 
 		sudo chmod 755 setup.sh
 		sudo ./setup.sh
 
-Option 3:
-	Wget (Recommended)
+Option 3: Wget (Recommended)
+
 		wget https://raw.githubusercontent.com/gremdev/SLAMPad/master/setup.sh -O setup.sh
 
 		sudo chmod 755 setup.sh
