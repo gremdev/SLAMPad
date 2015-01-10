@@ -3,14 +3,21 @@ SLAMPad (Beta)
 
 Simple Linux, Apache, MySQL and PHP Administration v1.0
 
-This is a simple script that automates the installation of Linux, Apache, MySQL and PHP in Ubuntu.
-Currently tested on Ubuntu 12.04 VPS, but will also work on versions 14.04 and above.
+This is a simple script that automates the installation of Apache, MySQL and PHP on Ubuntu Linux.
+Currently tested on Ubuntu 12.04 and 14.04 VPS, but will also work on higher versions.
 
 Note: This is still in Beta. Use at your own risk.
 
 Installation
 
-Option 1: Git
+Option 1: Wget (Recommended)
+
+		wget https://raw.githubusercontent.com/gremdev/SLAMPad/master/setup.sh -O setup.sh
+
+		sudo chmod 755 setup.sh
+		sudo ./setup.sh
+
+Option 2: Git
 	
 		sudo apt-get update
 		sudo apt-get install git-core
@@ -22,7 +29,7 @@ Option 1: Git
 
 		sudo ./setup.sh
 
-Option 2: Manual
+Option 3: Manual
 
 		Copy the contents of setup.sh.
 		Create a file and name it setup.sh then paste the copied content. (Or you can do it by sudo nano setup.sh).
@@ -30,12 +37,6 @@ Option 2: Manual
 		sudo chmod 755 setup.sh
 		sudo ./setup.sh
 
-Option 3: Wget (Recommended)
-
-		wget https://raw.githubusercontent.com/gremdev/SLAMPad/master/setup.sh -O setup.sh
-
-		sudo chmod 755 setup.sh
-		sudo ./setup.sh
 
 While installing, MySQL will prompt asking for root password. Add your password and confirm it.
 MySQL will ask again for your root password and few other questions.
