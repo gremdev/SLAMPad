@@ -7,58 +7,51 @@ mkdir -p /var/www/$domain_name/public_html
 chown -R $USER:$USER /var/www/$domain_name/public_html
 chmod -R 755 /var/www
 
-echo "<!DOCTYPE html>"> /var/www/$domain_name/public_html/default.php
-echo "<html>" >> /var/www/$domain_name/public_html/default.php
-echo "<head>" >> /var/www/$domain_name/public_html/default.php
-echo "  <title>Welcome to $domain_name</title>" >> /var/www/$domain_name/public_html/default.php
-echo "</head>" >> /var/www/$domain_name/public_html/default.php
-echo "<body>" >> /var/www/$domain_name/public_html/default.php
-echo "Hello World!" >> /var/www/$domain_name/public_html/default.php
-echo "</body>" >> /var/www/$domain_name/public_html/default.php
-echo "</html>" >> /var/www/$domain_name/public_html/default.php
+echo "<?php"> /var/www/$domain_name/public_html/index.php
+echo "phpinfo();"> /var/www/$domain_name/public_html/index.php
+echo "?>"> /var/www/$domain_name/public_html/index.php
 
+echo "<VirtualHost *:80>" > /etc/apache2/sites-available/$domain_name.conf
+echo "        ServerAdmin webmaster@localhost" >> /etc/apache2/sites-available/$domain_name.conf
+echo "		  ServerName $domain_name" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        ServerAlias $domain_name" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        DocumentRoot /var/www/$domain_name/public_html/" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        <Directory />" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Options FollowSymLinks" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	AllowOverride None" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        </Directory>" >> /etc/apache2/sites-available/$domain_name.conf
+echo " " >> /etc/apache2/sites-available/$domain_name.conf
+echo "        <Directory /var/www/$domain_name/public_html/>" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Options Indexes FollowSymLinks MultiViews" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	AllowOverride None" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Order allow,deny" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	allow from all" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        </Directory>" >> /etc/apache2/sites-available/$domain_name.conf
+echo " " >> /etc/apache2/sites-available/$domain_name.conf
+echo "        ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        <Directory "/usr/lib/cgi-bin">" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	AllowOverride None" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Order allow,deny" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        </Directory>" >> /etc/apache2/sites-available/$domain_name.conf
+echo "" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        ErrorLog ${APACHE_LOG_DIR}/error.log" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        LogLevel warn" >> /etc/apache2/sites-available/$domain_name.conf
+echo "" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        CustomLog ${APACHE_LOG_DIR}/access.log combined" >> /etc/apache2/sites-available/$domain_name.conf
+echo "" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        Alias /doc/ '/usr/share/doc'" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        <Directory '/usr/share/doc'>" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Options Indexes MultiViews FollowSymLinks" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	AllowOverride None" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Order deny,allow" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Deny from all" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        	Allow from 127.0.0.0/255.0.0.0 ::1/128" >> /etc/apache2/sites-available/$domain_name.conf
+echo "        </Directory>" >> /etc/apache2/sites-available/$domain_name.conf
+echo "" >> /etc/apache2/sites-available/$domain_name.conf
+echo "</VirtualHost>" >> /etc/apache2/sites-available/$domain_name.conf
 
-echo "<VirtualHost *:80>" > /etc/apache2/sites-available/$domain_name
-echo "        ServerAdmin webmaster@localhost" >> /etc/apache2/sites-available/$domain_name
-echo "		  ServerName $domain_name" >> /etc/apache2/sites-available/$domain_name
-echo "        ServerAlias $domain_name" >> /etc/apache2/sites-available/$domain_name
-echo "        DocumentRoot /var/www/$domain_name/public_html/" >> /etc/apache2/sites-available/$domain_name
-echo "        <Directory />" >> /etc/apache2/sites-available/$domain_name
-echo "        	Options FollowSymLinks" >> /etc/apache2/sites-available/$domain_name
-echo "        	AllowOverride None" >> /etc/apache2/sites-available/$domain_name
-echo "        </Directory>" >> /etc/apache2/sites-available/$domain_name
-echo " " >> /etc/apache2/sites-available/$domain_name
-echo "        <Directory /var/www/$domain_name/public_html/>" >> /etc/apache2/sites-available/$domain_name
-echo "        	Options Indexes FollowSymLinks MultiViews" >> /etc/apache2/sites-available/$domain_name
-echo "        	AllowOverride None" >> /etc/apache2/sites-available/$domain_name
-echo "        	Order allow,deny" >> /etc/apache2/sites-available/$domain_name
-echo "        	allow from all" >> /etc/apache2/sites-available/$domain_name
-echo "        </Directory>" >> /etc/apache2/sites-available/$domain_name
-echo " " >> /etc/apache2/sites-available/$domain_name
-echo "        ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/" >> /etc/apache2/sites-available/$domain_name
-echo "        <Directory "/usr/lib/cgi-bin">" >> /etc/apache2/sites-available/$domain_name
-echo "        	AllowOverride None" >> /etc/apache2/sites-available/$domain_name
-echo "        	Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch" >> /etc/apache2/sites-available/$domain_name
-echo "        	Order allow,deny" >> /etc/apache2/sites-available/$domain_name
-echo "        </Directory>" >> /etc/apache2/sites-available/$domain_name
-echo "" >> /etc/apache2/sites-available/$domain_name
-echo "        ErrorLog ${APACHE_LOG_DIR}/error.log" >> /etc/apache2/sites-available/$domain_name
-echo "        LogLevel warn" >> /etc/apache2/sites-available/$domain_name
-echo "" >> /etc/apache2/sites-available/$domain_name
-echo "        CustomLog ${APACHE_LOG_DIR}/access.log combined" >> /etc/apache2/sites-available/$domain_name
-echo "" >> /etc/apache2/sites-available/$domain_name
-echo "        Alias /doc/ '/usr/share/doc'" >> /etc/apache2/sites-available/$domain_name
-echo "        <Directory '/usr/share/doc'>" >> /etc/apache2/sites-available/$domain_name
-echo "        	Options Indexes MultiViews FollowSymLinks" >> /etc/apache2/sites-available/$domain_name
-echo "        	AllowOverride None" >> /etc/apache2/sites-available/$domain_name
-echo "        	Order deny,allow" >> /etc/apache2/sites-available/$domain_name
-echo "        	Deny from all" >> /etc/apache2/sites-available/$domain_name
-echo "        	Allow from 127.0.0.0/255.0.0.0 ::1/128" >> /etc/apache2/sites-available/$domain_name
-echo "        </Directory>" >> /etc/apache2/sites-available/$domain_name
-echo "" >> /etc/apache2/sites-available/$domain_name
-echo "</VirtualHost>" >> /etc/apache2/sites-available/$domain_name
-
-a2ensite $domain_name
+a2ensite $domain_name.conf
 service apache2 restart
 
 echo " "
