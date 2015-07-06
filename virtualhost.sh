@@ -8,8 +8,8 @@ chown -R $USER:$USER /var/www/$domain_name/public_html
 chmod -R 755 /var/www
 
 echo "<?php"> /var/www/$domain_name/public_html/index.php
-echo "phpinfo();"> /var/www/$domain_name/public_html/index.php
-echo "?>"> /var/www/$domain_name/public_html/index.php
+echo "phpinfo();" >> /var/www/$domain_name/public_html/index.php
+echo "?>" >> /var/www/$domain_name/public_html/index.php
 
 echo "<VirtualHost *:80>" > /etc/apache2/sites-available/$domain_name.conf
 echo "        ServerAdmin webmaster@localhost" >> /etc/apache2/sites-available/$domain_name.conf
