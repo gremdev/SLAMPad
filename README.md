@@ -8,6 +8,8 @@ Currently tested on Ubuntu 12.04 and 14.04 VPS, but will also work on higher ver
 
 Note: This is still in Beta. Use at your own risk.
 
+Watch [this video](https://youtu.be/j3jdeKjKTt4) on Youtube
+
 Installation
 
 Option 1: Wget (Recommended)
